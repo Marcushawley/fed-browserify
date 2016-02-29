@@ -649,14 +649,14 @@ Browserify.prototype._dedupe = function () {
         if (!row.dedupeIndex && row.dedupe) {
             row.source = 'var target=arguments[4]['
                 + JSON.stringify(row.dedupe)
-                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+atob(target)); temp[0].apply(exports,arguments); }';
+                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+target); temp[0].apply(exports,arguments); }';
 
             row.nomap = true;
         }
         else if (row.dedupeIndex) {
             row.source = 'var target=arguments[4]['
                 + JSON.stringify(row.dedupeIndex)
-                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+atob(target)); temp[0].apply(exports,arguments); }';
+                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+target); temp[0].apply(exports,arguments); }';
 
             row.nomap = true;
         }
