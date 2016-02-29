@@ -1,6 +1,6 @@
 var mdeps = require('module-deps');
 var depsSort = require('deps-sort');
-var bpack = require('browser-pack');
+var bpack = require('./lib/browser-pack.js');
 var insertGlobals = require('insert-module-globals');
 var syntaxError = require('syntax-error');
 
@@ -647,17 +647,17 @@ Browserify.prototype._syntax = function () {
 Browserify.prototype._dedupe = function () {
     return through.obj(function (row, enc, next) {
         if (!row.dedupeIndex && row.dedupe) {
-            row.source = 'arguments[4]['
+            row.source = 'var target=arguments[4]['
                 + JSON.stringify(row.dedupe)
-                + '][0].apply(exports,arguments)'
-            ;
+                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+atob(target)); temp[0].apply(exports,arguments); }';
+
             row.nomap = true;
         }
         else if (row.dedupeIndex) {
-            row.source = 'arguments[4]['
+            row.source = 'var target=arguments[4]['
                 + JSON.stringify(row.dedupeIndex)
-                + '][0].apply(exports,arguments)'
-            ;
+                + ']; if (typeof target !== \'string\' || target ===\'\') { target[0].apply(exports,arguments); } else { eval("var temp="+atob(target)); temp[0].apply(exports,arguments); }';
+
             row.nomap = true;
         }
         if (row.dedupeIndex && row.indexDeps) {
