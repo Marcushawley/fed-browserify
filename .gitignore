@@ -1,0 +1,12 @@
+/node_modules/*
+.idea/
+npm-debug.log
+polyfills-bundles/
+.DS_Store
+*.log
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+~*
